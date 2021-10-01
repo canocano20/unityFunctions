@@ -2,29 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damageable : MonoBehaviour, IDamageable<float>
+namespace CanCandir.Damageable
 {
-    [SerializeField] private float _health = 50f;
-
-    public void TakeDamage(float damage)
+    public class Damageable : MonoBehaviour, IDamageable<float>
     {
-        _health -= damage;
-    }
+        [SerializeField] private float _health = 50f;
 
-    public void IsDead()
-    {
-        if (_health <= 0f)
-            Destroy(gameObject);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Projectile"))
+        public void TakeDamage(float damage)
         {
-            TakeDamage(collision.collider.GetComponent<ProjectileCollision>().damage);
-            IsDead();
+            _health -= damage;
+        }
+
+        public void IsDead()
+        {
+            if (_health <= 0f)
+                Destroy(gameObject);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.CompareTag("Projectile"))
+            {
+                TakeDamage(collision.collider.GetComponent<ProjectileCollision>().damage);
+                IsDead();
+            }
         }
     }
-
-
 }

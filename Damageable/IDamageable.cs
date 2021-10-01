@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageable<T>
+namespace CanCandir.Damageable
 {
-    public void TakeDamage(T damage);
+    public interface IDamageable<T>
+    {
+        public void TakeDamage(T damage);
 
-    public void IsDead();
+        public void IsDead();
+    }
 }
+
