@@ -10,34 +10,15 @@ public enum CanvasType
     EndMenu
 }
 
-public class CanvasManager : MonoBehaviour
+public class CanvasManager : Singleton<CanvasManager>
 {
-
-    private static CanvasManager _instance;
-
-    public static CanvasManager Instance
-    {
-        get
-        {
-            return _instance;
-        }
-    }
-
     List<CanvasController> _canvasControllers;
 
     CanvasController _lastActiveCanvas;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (_instance)
-        {
-            DestroyImmediate(gameObject);
-            return;
-        }
-
-        _instance = this;
-
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
 
         _canvasControllers = GetComponentsInChildren<CanvasController>().ToList();
 
@@ -46,7 +27,6 @@ public class CanvasManager : MonoBehaviour
         SwitchCanvas(CanvasType.MainMenu);
         
     }
-
 
     public void SwitchCanvas(CanvasType type)
     {
