@@ -16,7 +16,7 @@ namespace CanCandir.Audio
         // Start is called before the firs  t frame update
         void Awake()
         {
-
+            base.Awake();
             if(instance == null)
             {
                 instance = this;
